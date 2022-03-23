@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.refuse.mapper.RefuseInfoMapper">
+
+<!--  计算某一类垃圾的总数-->
+    <select id="getTotal" resultType="int">
+        select count(refusename)
+        from refuseinfo
+        where catenum = #{catenum}
+    </select>
+
+<!--  分页查询垃圾-->
+    <select id="findByPage" resultType="RefuseInfo">
+        select *
+        from refuseinfo
+        where catenum = #{catenum}
+        limit #{offset},#{pagesize}
+    </select>
+    
+<!--    通过垃圾名模糊查询-->
+    <select id="searchRefuse" resultType="com.example.refuse.vo.SearchInfo">
+        select refusename,refusecate
+        from refuseinfo
+        where refusename like '%${name}%'
+    </select>
+</mapper>
